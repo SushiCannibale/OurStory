@@ -3,7 +3,7 @@ package ourstory.skills;
 import java.util.List;
 import org.bukkit.entity.Entity;
 
-public class Reinforce implements Skills {
+public class Reinforce implements Skill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {

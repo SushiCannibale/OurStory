@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import ourstory.bosses.Difficulty;
-import ourstory.bosses.AbyssalSentinel;
+import ourstory.bosses.abyssal_sentinel.AbyssalSentinel;
 import ourstory.storage.BossInstance;
 import ourstory.storage.Storage;
 import ourstory.utils.Permissions;
@@ -29,7 +29,7 @@ public class Boss implements BasicCommand {
 		String bossName = args[0];
 		Difficulty difficulty = Difficulty.valueOf(args[1]);
 
-		ourstory.bosses.Boss boss = null;
+		ourstory.bosses.AbstractBoss boss = null;
 
 		// Teleport player to the arena
 		World arena = Bukkit.getWorld("world");

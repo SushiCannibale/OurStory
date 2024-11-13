@@ -16,7 +16,7 @@ import ourstory.storage.Storage;
 import ourstory.utils.EnchantItem;
 import ourstory.utils.PlayerUtils;
 
-public class Summon implements Skills {
+public class Summon implements Skill {
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {
 		Storage s = Storage.getInstance();

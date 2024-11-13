@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.bukkit.entity.Player;
-import ourstory.bosses.Boss;
+import ourstory.bosses.AbstractBoss;
 
 public class BossInstance {
-	public Boss monster;
+	public AbstractBoss monster;
 	public List<Player> players;
 	public Map<Player, Double> damage;
 
@@ -20,7 +20,7 @@ public class BossInstance {
 
 	public Boolean isFinished = false;
 
-	public BossInstance(Boss boss, List<Player> players, int duration) {
+	public BossInstance(AbstractBoss boss, List<Player> players, int duration) {
 		this.monster = boss;
 		this.players = players;
 

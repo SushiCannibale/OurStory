@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import ourstory.storage.Storage;
 
-public class WitherRage implements Skills {
+public class WitherRage implements Skill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {
@@ -36,8 +36,8 @@ public class WitherRage implements Skills {
 					Vector direction = playerLocation.toVector().subtract(bossLocation.toVector()).normalize();
 
 					// Spawn the WitherSkull at the boss's location
-					WitherSkull skull =
-							(WitherSkull) boss.getWorld().spawnEntity(boss.getLocation().add(0, 1, 0), EntityType.WITHER_SKULL);
+					WitherSkull skull = (WitherSkull) boss.getWorld().spawnEntity(boss.getLocation().add(0, 1, 0),
+							EntityType.WITHER_SKULL);
 
 					// Set the direction of the WitherSkull to point towards the player
 					skull.setDirection(direction);

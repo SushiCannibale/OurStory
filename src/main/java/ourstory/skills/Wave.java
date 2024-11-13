@@ -3,7 +3,7 @@ package ourstory.skills;
 import java.util.List;
 import org.bukkit.entity.Entity;
 
-public class Wave implements Skills {
+public class Wave implements Skill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {
