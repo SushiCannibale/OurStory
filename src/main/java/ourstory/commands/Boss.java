@@ -39,14 +39,21 @@ public class Boss implements BasicCommand {
 		switch (bossName) {
 			case "AbyssalSentinel":
 				boss = new AbyssalSentinel(difficulty, arena.getSpawnLocation().set(0, 66, -201), arena);
-				boss.onSpawn();
 				break;
-
-			default:
+				
+				default:
 				sender.getSender().sendMessage("This boss does not exist !");
 				return;
+			}
+		
+		if (boss == null) {
+			sender.getSender().sendMessage("Unable to spawn boss !");
+			return;
 		}
 
+		arena.getSpawnLocation()
+		boss.onSpawn();
+			
 		// Register boss instance
 		Storage s = Storage.getInstance();
 		s.bossInstance = new BossInstance(boss, List.of(p), 15);

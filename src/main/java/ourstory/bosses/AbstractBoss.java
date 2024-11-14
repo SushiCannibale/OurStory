@@ -25,23 +25,22 @@ import ourstory.bosses.state.IdleState;
  */
 public abstract class AbstractBoss {
 	private String name;
-	private EntityType entity_type;
+	private LivingEntity entity;
 	private Thread thread;
 
 	public AbstractState state;
 	public ArrayList<LivingEntity> targets;
 
-
-	public AbstractBoss(String name, EntityType entity_type) {
+	public AbstractBoss(String name) {
 		this.name = name;
-		this.entity_type = entity_type;
-		this.state = new IdleState(this);
 		this.thread = new Thread();
-
+		this.state = new IdleState(this);
 		this.targets = new ArrayList<>();
 	}
 
-	public void setState(AbstractState new_state) {
+	protected abstract void setAttributes(AttributeInstance instance);
+
+	protected void setState(AbstractState new_state) {
 		this.state = new_state;
 	}
 
@@ -60,23 +59,23 @@ public abstract class AbstractBoss {
 	/*
 	 * If a boss is killed in hard mode, then we trigger all loots tables bellow
 	 */
-	public void generateDrops(EntityDeathEvent event, Map<Difficulty, List<LootEntry>> loots) {
-		Random random = new Random();
+	// public void generateDrops(EntityDeathEvent event, Map<Difficulty, List<LootEntry>> loots) {
+	// 	Random random = new Random();
 
-		for (Map.Entry<Difficulty, List<LootEntry>> entry : loots.entrySet()) {
-			if (this.difficulty.level >= entry.getKey().level) {
-				for (LootEntry le : entry.getValue()) {
-					int rng = random.nextInt(101);
+	// 	for (Map.Entry<Difficulty, List<LootEntry>> entry : loots.entrySet()) {
+	// 		if (this.difficulty.level >= entry.getKey().level) {
+	// 			for (LootEntry le : entry.getValue()) {
+	// 				int rng = random.nextInt(101);
 
-					if (rng < le.proba()) {
-						int quantity = Math.max(1, random.nextInt(le.maxQuantity() + 1));
+	// 				if (rng < le.proba()) {
+	// 					int quantity = Math.max(1, random.nextInt(le.maxQuantity() + 1));
 
-						ItemStack item = le.item().clone();
-						item.setAmount(quantity);
-						event.getDrops().add(item);
-					}
-				}
-			}
-		}
-	}
+	// 					ItemStack item = le.item().clone();
+	// 					item.setAmount(quantity);
+	// 					event.getDrops().add(item);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
