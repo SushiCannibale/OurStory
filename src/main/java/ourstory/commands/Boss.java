@@ -4,11 +4,15 @@ import java.util.Collections;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import ourstory.bosses.AbstractBoss;
 import ourstory.bosses.Difficulty;
 import ourstory.bosses.abyssal_sentinel.AbyssalSentinel;
+import ourstory.bosses.test_boss.TestBoss;
 import ourstory.storage.BossInstance;
 import ourstory.storage.Storage;
 import ourstory.utils.Permissions;
@@ -29,13 +33,13 @@ public class Boss implements BasicCommand {
 		String bossName = args[0];
 		Difficulty difficulty = Difficulty.valueOf(args[1]);
 
-		ourstory.bosses.AbstractBoss boss = null;
 
 		// Teleport player to the arena
 		World arena = Bukkit.getWorld("world");
-		Player p = (Player) sender.getSender();
+		Player player = (Player)sender.getSender();
 		// p.teleport(arena.getSpawnLocation());
 
+<<<<<<< HEAD
 		switch (bossName) {
 			case "AbyssalSentinel":
 				boss = new AbyssalSentinel(difficulty, arena.getSpawnLocation().set(0, 66, -201), arena);
@@ -49,14 +53,30 @@ public class Boss implements BasicCommand {
 		if (boss == null) {
 			sender.getSender().sendMessage("Unable to spawn boss !");
 			return;
+=======
+		AbstractBoss boss;
+		if (bossName.equals("TestBoss")) {
+			LivingEntity entity = (LivingEntity)arena.spawnEntity(player.getLocation(), EntityType.VILLAGER);
+			boss = new TestBoss(entity);
+>>>>>>> 53aacb2 (feat: refactoring Skills + Boss + BossManager)
 		}
+//		switch (bossName) {
+//			case "AbyssalSentinel":
+//				boss = new AbyssalSentinel(difficulty, arena.getSpawnLocation().set(0, 66, -201), arena);
+//				boss.onSpawn();
+//				break;
+//
+//			default:
+//				sender.getSender().sendMessage("This boss does not exist !");
+//				return;
+//		}
 
 		arena.getSpawnLocation()
 		boss.onSpawn();
 			
 		// Register boss instance
-		Storage s = Storage.getInstance();
-		s.bossInstance = new BossInstance(boss, List.of(p), 15);
+//		Storage s = Storage.getInstance();
+//		s.bossInstance = new BossInstance(boss, List.of(p), 15);
 	}
 
 	/*

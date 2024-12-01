@@ -8,7 +8,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-public class ArrowWall implements Skill {
+public class ArrowWall implements AbstractSkill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {

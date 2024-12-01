@@ -4,7 +4,7 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import ourstory.Main;
+import ourstory.OurStoryPlugin;
 
 public class onPlayerTips {
 	public static void playerTips() {
@@ -13,8 +13,8 @@ public class onPlayerTips {
 			return;
 
 		Random rng = new Random();
-		int randomIndex = rng.nextInt(Main.tipMessages.size());
+		int randomIndex = rng.nextInt(OurStoryPlugin.tipMessages.size());
 
-		Bukkit.broadcast(Component.text("[Tip] " + Main.tipMessages.get(randomIndex)).color(NamedTextColor.GREEN));
+		Bukkit.broadcast(Component.text("[Tip] " + OurStoryPlugin.tipMessages.get(randomIndex)).color(NamedTextColor.GREEN));
 	}
 }

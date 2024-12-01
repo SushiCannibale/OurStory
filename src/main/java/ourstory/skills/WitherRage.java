@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import ourstory.storage.Storage;
 
-public class WitherRage implements Skill {
+public class WitherRage implements AbstractSkill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {

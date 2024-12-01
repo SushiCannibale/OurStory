@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-public class Annihilation implements Skill {
+public class Annihilation implements AbstractSkill {
 	/*
 	 * Special skill, last skill only used in chaos mode. Triggers at 20% HP remaining. The boss invokes
 	 * a flame circle arround him and deals a lot of damages.

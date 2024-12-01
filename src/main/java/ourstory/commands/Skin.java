@@ -14,8 +14,8 @@ import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import ourstory.Main;
-import ourstory.Main.CustomSkin;
+import ourstory.OurStoryPlugin;
+import ourstory.OurStoryPlugin.CustomSkin;
 import ourstory.utils.Permissions;
 
 public class Skin implements BasicCommand {
@@ -49,7 +49,7 @@ public class Skin implements BasicCommand {
 		}
 
 		// Get skin id
-		Optional<CustomSkin> customSkinSearch = Main.skins.stream().filter(i -> i.name().equalsIgnoreCase(args[0])).findFirst();
+		Optional<CustomSkin> customSkinSearch = OurStoryPlugin.skins.stream().filter(i -> i.name().equalsIgnoreCase(args[0])).findFirst();
 
 		if (customSkinSearch.isEmpty()) {
 			sender.getSender().sendMessage("Unknown skin !");
@@ -75,7 +75,7 @@ public class Skin implements BasicCommand {
 		if (args.length > 1)
 			return suggestions;
 
-		for (CustomSkin cs : Main.skins)
+		for (CustomSkin cs : OurStoryPlugin.skins)
 			if (args.length == 0 || (args.length > 0 && cs.name().toLowerCase().startsWith(args[0].toLowerCase())))
 				suggestions.add(cs.name());
 

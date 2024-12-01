@@ -3,7 +3,7 @@ package ourstory.skills;
 import java.util.List;
 import org.bukkit.entity.Entity;
 
-public class LaserFocus implements Skill {
+public class LaserFocus implements AbstractSkill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {

@@ -3,7 +3,7 @@ package ourstory.skills;
 import java.util.List;
 import org.bukkit.entity.Entity;
 
-public class Meteors implements Skill {
+public class Meteors implements AbstractSkill {
 
 	@Override
 	public void cast(Entity caster, List<Entity> targets) {

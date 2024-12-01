@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.StonecuttingRecipe;
-import ourstory.Main;
+import ourstory.OurStoryPlugin;
 
 public class StoneCutter {
 
@@ -23,7 +23,7 @@ public class StoneCutter {
 				new CustomRecipeStoneCutter("deepcobbled_gravel", Material.COBBLED_DEEPSLATE, new ItemStack(Material.GRAVEL, 1)));
 
 		for (CustomRecipeStoneCutter t : recipes) {
-			StonecuttingRecipe recipe = new StonecuttingRecipe(new NamespacedKey(Main.namespace, t.recipeName()), t.result(), t.source());
+			StonecuttingRecipe recipe = new StonecuttingRecipe(new NamespacedKey(OurStoryPlugin.namespace, t.recipeName()), t.result(), t.source());
 
 			Bukkit.addRecipe(recipe);
 		}

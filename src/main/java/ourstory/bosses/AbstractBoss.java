@@ -1,81 +1,86 @@
 package ourstory.bosses;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.Map;
-import java.util.Random;
-import org.bukkit.entity.EntityType;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityEvent;
-import org.bukkit.inventory.ItemStack;
-import ourstory.bosses.state.AbstractState;
-import ourstory.bosses.state.IdleState;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+import ourstory.OurStoryPlugin;
+import ourstory.skills.AbstractSkill;
 
-/**
- * Logically, a boss is a Finite State Machine. Il can be seen as a thread that runs whenever the
- * `onSpawn()` method is called, and ends with the `onDeath()` method.
- * 
- * The skills are totally delegated to the state themselves.
- */
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Predicate;
+
 public abstract class AbstractBoss {
-	private String name;
-	private LivingEntity entity;
-	private Thread thread;
+	public static final String METADATA = "isBoss";
 
-	public AbstractState state;
-	public ArrayList<LivingEntity> targets;
+	protected String name;
+	protected LivingEntity entity;
+	protected Map<Predicate<AbstractBoss>, AbstractSkill> skills;
+	protected ArrayList<LivingEntity> targets;
 
-	public AbstractBoss(String name) {
+	public AbstractBoss(String name, LivingEntity entity, Map<Predicate<AbstractBoss>, AbstractSkill> skills) {
 		this.name = name;
-		this.thread = new Thread();
-		this.state = new IdleState(this);
+		this.entity = entity;
+		this.skills = skills;
 		this.targets = new ArrayList<>();
+
+		Plugin plugin = JavaPlugin.getPlugin(OurStoryPlugin.class);
+		entity.setMetadata("isBoss", new FixedMetadataValue(plugin, true));
 	}
 
-	protected abstract void setAttributes(AttributeInstance instance);
+	public String getName() {
+		return this.name;
+	}
 
-	protected void setState(AbstractState new_state) {
-		this.state = new_state;
+	public LivingEntity getEntity() {
+		return this.entity;
 	}
 
 	public void onSpawn() {
-		thread.start();
+		BossManager.getInstance().registerBoss(this);
 	}
 
+	public abstract void onHit();
+	// TODO: Drop loot, end thread if running
+
 	public void onDeath() {
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		BossManager.getInstance().unregisterBoss(this);
+	}
+
+	public void tick() {
+		for (var predicate : skills.keySet()) {
+			AbstractSkill skill = skills.get(predicate);
+			if (predicate.test(this) && skill.canBeTriggered() && !skill.isRunning()) {
+				skill.setCaster(this.entity);
+				skill.setTargets(this.targets);
+				skill.start();
+			}
 		}
 	}
 
 	/*
 	 * If a boss is killed in hard mode, then we trigger all loots tables bellow
 	 */
-	// public void generateDrops(EntityDeathEvent event, Map<Difficulty, List<LootEntry>> loots) {
-	// 	Random random = new Random();
 
-	// 	for (Map.Entry<Difficulty, List<LootEntry>> entry : loots.entrySet()) {
-	// 		if (this.difficulty.level >= entry.getKey().level) {
-	// 			for (LootEntry le : entry.getValue()) {
-	// 				int rng = random.nextInt(101);
-
-	// 				if (rng < le.proba()) {
-	// 					int quantity = Math.max(1, random.nextInt(le.maxQuantity() + 1));
-
-	// 					ItemStack item = le.item().clone();
-	// 					item.setAmount(quantity);
-	// 					event.getDrops().add(item);
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
+//	public void generateDrops(EntityDeathEvent event, Map<Difficulty, List<LootEntry>> loots) {
+//		Random random = new Random();
+//
+//		for (Map.Entry<Difficulty, List<LootEntry>> entry : loots.entrySet()) {
+//			if (this.difficulty.level >= entry.getKey().level) {
+//				for (LootEntry le : entry.getValue()) {
+//					int rng = random.nextInt(101);
+//
+//					if (rng < le.proba()) {
+//						int quantity = Math.max(1, random.nextInt(le.maxQuantity() + 1));
+//
+//						ItemStack item = le.item().clone();
+//						item.setAmount(quantity);
+//						event.getDrops().add(item);
+//					}
+//				}
+//			}
+//		}
+//	}
 }

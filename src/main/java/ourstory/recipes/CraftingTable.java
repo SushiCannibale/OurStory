@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import ourstory.Main;
+import ourstory.OurStoryPlugin;
 
 public class CraftingTable {
 
@@ -71,7 +71,7 @@ public class CraftingTable {
 			recipeResultMeta.itemName(Component.text(r.itemName()).color(NamedTextColor.RED).decorate(TextDecoration.BOLD));
 			recipeResult.setItemMeta(recipeResultMeta);
 
-			ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.namespace, r.recipeName()), recipeResult);
+			ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(OurStoryPlugin.namespace, r.recipeName()), recipeResult);
 			recipe.shape(r.shape1(), r.shape2(), r.shape3());
 
 			for (Map.Entry<Character, Material> entry : r.materials().entrySet())

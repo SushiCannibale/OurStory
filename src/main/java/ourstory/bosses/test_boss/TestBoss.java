@@ -1,15 +1,35 @@
 package ourstory.bosses.test_boss;
 
-import org.bukkit.entity.EntityType;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.entity.LivingEntity;
 import ourstory.bosses.AbstractBoss;
-import ourstory.bosses.state.AbstractState;
-import ourstory.bosses.state.IdleState;
+import ourstory.skills.AbstractSkill;
+import ourstory.skills.BroadcastMessageSkill;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
 
 public class TestBoss extends AbstractBoss {
-	public TestBoss() {
-		super("TestBoss", EntityType.WITHER_SKELETON);
+	private static Map<Predicate<AbstractBoss>, AbstractSkill> getSkills() {
+		Map<Predicate<AbstractBoss>, AbstractSkill> skills = new HashMap<>();
+
+		skills.put(boss -> boss.getEntity().getHealth() <= 10.0f, new BroadcastMessageSkill());
+
+		return skills;
+	}
+
+	public TestBoss(LivingEntity entity) {
+		super("TestBoss", entity, getSkills());
+	}
+
+	@Override
+	public void onSpawn() {
+
+	}
+
+	@Override
+	public void onDeath() {
+
 	}
 
 	protected void setAttributes(AttributeInstance instance, Difficulty difficuly) {

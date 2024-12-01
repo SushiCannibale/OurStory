@@ -10,7 +10,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import ourstory.Main;
+import ourstory.OurStoryPlugin;
 import ourstory.utils.DeathMessage;
 import ourstory.utils.EnchantItem;
 
@@ -21,7 +21,7 @@ public class onPlayerDeath implements Listener {
 		Player player = event.getPlayer();
 
 		Random random = new Random();
-		int rng = random.nextInt(Main.deathMessagesEn.size());
+		int rng = random.nextInt(OurStoryPlugin.deathMessagesEn.size());
 
 		for (Player p : Bukkit.getOnlinePlayers())
 			p.sendMessage(Component.text(DeathMessage.getRandomDeathMessage(p.locale(), player, rng)).color(NamedTextColor.DARK_RED));

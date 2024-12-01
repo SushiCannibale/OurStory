@@ -12,16 +12,18 @@ import ourstory.commands.*;
 import ourstory.events.*;
 import ourstory.recipes.*;
 
-public class Main extends JavaPlugin {
+public final class OurStoryPlugin extends JavaPlugin {
 
 	public static final String namespace = "ourstory";
 	public static List<String> deathMessagesFr, deathMessagesEn, tipMessages;
 	public static List<CustomSkin> skins = new ArrayList<>();
 
 	public record CustomSkin(int id, String name, int price) {
+
 	}
 
 	@Override
+
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage("Loading Ourstory...");
 
