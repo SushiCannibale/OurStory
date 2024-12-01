@@ -45,8 +45,8 @@ public final class OurStoryPlugin extends JavaPlugin {
 		/*
 		 * Registers all events
 		 */
-		Bukkit.getPluginManager().registerEvents(new onBossDeath(), this);
-		Bukkit.getPluginManager().registerEvents(new onBossHit(), this);
+		Bukkit.getPluginManager().registerEvents(new BossEvent(), this);
+
 		Bukkit.getPluginManager().registerEvents(new onEntityDeath(), this);
 		Bukkit.getPluginManager().registerEvents(new onEntityHit(), this);
 		Bukkit.getPluginManager().registerEvents(new onFinalDamage(), this);

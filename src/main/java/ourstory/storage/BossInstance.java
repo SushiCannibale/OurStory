@@ -29,7 +29,6 @@ public class BossInstance {
 		for (Player p : players)
 			damage.put(p, 0D);
 
-
 		this.entered = new Date();
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.MINUTE, duration);
