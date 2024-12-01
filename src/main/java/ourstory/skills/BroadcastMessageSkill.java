@@ -3,8 +3,6 @@ package ourstory.skills;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-
 public class BroadcastMessageSkill extends AbstractSkill {
     public BroadcastMessageSkill() {
         super(20);

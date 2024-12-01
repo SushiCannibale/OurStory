@@ -1,7 +1,6 @@
-package ourstory.bosses.test_boss;
+package ourstory.bosses;
 
 import org.bukkit.entity.LivingEntity;
-import ourstory.bosses.AbstractBoss;
 import ourstory.skills.AbstractSkill;
 import ourstory.skills.BroadcastMessageSkill;
 
@@ -28,13 +27,12 @@ public class TestBoss extends AbstractBoss {
 	}
 
 	@Override
-	public void onDeath() {
+	public void onHit() {
 
 	}
 
-	protected void setAttributes(AttributeInstance instance, Difficulty difficuly) {
-		instance.setBaseValue(Attribute.GENERIC_MAX_HEALTH, 800.0 * difficuly.level);
-		instance.setBaseValue(Attribute.GENERIC_MOVEMENT_SPEED, 0.1 * difficuly.level);
-		instance.setBaseValue(Attribute.GENERIC_ATTACK_DAMAGE, 12.0 * difficuly.level);
+	@Override
+	public void onDeath() {
+
 	}
 }

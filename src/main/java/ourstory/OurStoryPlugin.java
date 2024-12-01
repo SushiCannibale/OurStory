@@ -64,6 +64,8 @@ public final class OurStoryPlugin extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new onZombieDeath(), this);
 
 		// Registers all commands
+		/* TODO: Usual registration done through yaml config file !
+		 (This means we have to add pom.xml build sys to copy resources in the jar) */
 		var manager = this.getLifecycleManager();
 		manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
 			final Commands commands = event.registrar();

@@ -11,10 +11,8 @@ import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import ourstory.bosses.AbstractBoss;
 import ourstory.bosses.Difficulty;
-import ourstory.bosses.abyssal_sentinel.AbyssalSentinel;
-import ourstory.bosses.test_boss.TestBoss;
-import ourstory.storage.BossInstance;
-import ourstory.storage.Storage;
+import ourstory.bosses.AbyssalSentinel;
+import ourstory.bosses.TestBoss;
 import ourstory.utils.Permissions;
 
 public class Boss implements BasicCommand {

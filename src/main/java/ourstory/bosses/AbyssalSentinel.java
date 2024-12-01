@@ -1,4 +1,4 @@
-package ourstory.bosses.abyssal_sentinel;
+package ourstory.bosses;
 
 import java.util.Date;
 import java.util.List;
@@ -22,17 +22,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import net.kyori.adventure.text.Component;
-import ourstory.bosses.AbstractBoss;
-import ourstory.bosses.Difficulty;
-import ourstory.bosses.LootEntry;
 import ourstory.skills.*;
 import ourstory.storage.Storage;
 import ourstory.utils.EnchantItem;
 import ourstory.utils.TimeUtils;
 
-public class AbyssalSentinel extends AbstractBoss implements Runnable {
-
-	private Plugin p = Bukkit.getPluginManager().getPlugin("OurStory");
+public class AbyssalSentinel extends AbstractBoss {
 
 	private Map<Difficulty, Map<Attribute, Double>> attributes = Map.of(
 			Difficulty.EASY, Map.of(
