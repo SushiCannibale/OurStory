@@ -51,7 +51,7 @@ public abstract class AbstractSkill extends BukkitRunnable {
 		this.is_running = true;
 		this.resetCooldown();
 	}
-
+	
 	public boolean isRunning() {
 		return this.is_running;
 	}
