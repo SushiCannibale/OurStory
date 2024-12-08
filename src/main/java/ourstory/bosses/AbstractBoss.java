@@ -52,17 +52,13 @@ public abstract class AbstractBoss {
 	/* A map of all skills usable by the Boss */
 	protected abstract Map<Predicate<AbstractBoss>, AbstractSkill> getSkills();
 
-	/* The name will be used to fetch the loot table. So it MUST be in 'camel_case' */
-	public LootTable getLootTable() {
-		NamespacedKey key = new NamespacedKey(OurStoryPlugin.namespace, this.name);
-		return Bukkit.getLootTable(key);
-	}
+	public abstract String getLootTableName();
 
 	/* Tries to run a new skill */
 	public void tick() {
 		for (var predicate : skills.keySet()) {
 			AbstractSkill skill = skills.get(predicate);
-			if (predicate.test(this) && skill.canBeTriggered() && !skill.isRunning()) {
+			if (predicate.test(this) && skill.canBeTriggered()) {
 				skill.setCaster(this.entity);
 				skill.setTargets(this.targets);
 				skill.start();
@@ -75,8 +71,11 @@ public abstract class AbstractBoss {
 		Plugin plugin = JavaPlugin.getPlugin(OurStoryPlugin.class);
 		entity.setMetadata("isBoss", new FixedMetadataValue(plugin, true));
 
-		this.entity.setLootTable(this.getLootTable());
+		/* Register loot table */
+		LootTable loot_table = Bukkit.getLootTable(new NamespacedKey(OurStoryPlugin.namespace, this.getLootTableName()));
+		this.entity.setLootTable(loot_table);
 
+		/* Register among other bosses */
 		BossManager.getInstance().registerBoss(this);
 	}
 

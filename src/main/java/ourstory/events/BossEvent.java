@@ -1,5 +1,6 @@
 package ourstory.events;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -7,15 +8,18 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import ourstory.bosses.AbstractBoss;
 import ourstory.bosses.BossManager;
-import ourstory.storage.Storage;
 
 public final class BossEvent implements Listener {
     @EventHandler
     public void onBossSpawns(EntitySpawnEvent event) {
-        if (event.getEntity().getMetadata("isBoss").isEmpty()) {
+        Entity entity = event.getEntity();
+        if (!entity.hasMetadata("isBoss")) {
             return;
         }
-        BossManager.getInstance().getRegisteredBosses().values().forEach(AbstractBoss::onSpawn);
+        entity.getMetadata("isBoss").getFirst().asBoolean();
+        String name = entity.hasM
+        BossManager.getInstance().getBoss(entity)
+//        BossManager.getInstance().getRegisteredBosses().values().forEach(AbstractBoss::onSpawn);
     }
 
     @EventHandler
@@ -23,7 +27,7 @@ public final class BossEvent implements Listener {
         if (event.getEntity().getMetadata("isBoss").isEmpty()) {
             return;
         }
-        BossManager.getInstance().getRegisteredBosses().values().forEach(AbstractBoss::onHit);
+//        BossManager.getInstance().getRegisteredBosses().values().forEach(AbstractBoss::onHit);
     }
 
     @EventHandler
@@ -32,6 +36,6 @@ public final class BossEvent implements Listener {
             return;
         }
 
-        BossManager.getInstance().getRegisteredBosses().values().forEach(AbstractBoss::onDeath);
+//        BossManager.getInstance().getRegisteredBosses().values().forEach(AbstractBoss::onDeath);
     }
 }

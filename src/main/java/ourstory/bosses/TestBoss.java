@@ -20,12 +20,21 @@ public class TestBoss extends AbstractBoss {
 		super("test_boss", entity);
 	}
 
+	private boolean broadcastPredicate(AbstractBoss boss) {
+		return boss.getEntity().getHealth() <= 10.0f && !boss.hasRunningSkills();
+	}
+
 	@Override
 	protected Map<Predicate<AbstractBoss>, AbstractSkill> getSkills() {
 		Map<Predicate<AbstractBoss>, AbstractSkill> skills = new HashMap<>();
 
-		skills.put(boss -> boss.getEntity().getHealth() <= 10.0f && !boss.hasRunningSkills(), new BroadcastMessageSkill());
+		skills.put(this::broadcastPredicate, new BroadcastMessageSkill());
 
 		return skills;
+	}
+
+	@Override
+	public String getLootTableName() {
+		return "test_boss";
 	}
 }
